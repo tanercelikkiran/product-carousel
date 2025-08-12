@@ -16,9 +16,34 @@
     };
 
     const fetchData = async () => {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error(`HTTP hatası! Durum: ${response.status}`);
-        return await response.json();
+        try {
+            const products = localStorage.getItem('customCarouselProducts');
+            return JSON.parse(products);
+        }
+        catch (error) {
+            console.error('Not found in localStorage, fetching from API');
+            const response = await fetch(API_URL);
+            localStorage.setItem('customCarouselProducts', JSON.stringify(await response.json()));
+            return await response.json();
+        }
+    };
+
+    const getFavouriteProducts = () => {
+        const favouriteProducts = localStorage.getItem('favouriteProducts');
+        if (favouriteProducts) {
+            return JSON.parse(favouriteProducts).filter(product => product.isFavourite);
+        }
+    }
+
+    const setFavouriteProducts = (favouritedProductId) => {
+        const favouriteProducts = localStorage.getItem('favouriteProducts');
+        if (!favouriteProducts) {
+            localStorage.setItem('favouriteProducts', JSON.stringify([favouritedProductId]));
+        } else {
+            const updatedFavouriteProducts = JSON.parse(favouriteProducts);
+            updatedFavouriteProducts.push(favouritedProductId);
+            localStorage.setItem('favouriteProducts', JSON.stringify(updatedFavouriteProducts));
+        }
     };
 
     const buildHTML = (products) => {
@@ -77,9 +102,9 @@
                     <div class="custom-carousel-wrapper">
                         ${productSlides}
                     </div>
-                    <button class="custom-carousel-btn prev">&lt;</button>
-                    <button class="custom-carousel-btn next">&gt;</button>
                 </div>
+                <button class="custom-carousel-btn prev">&lt;</button>
+                <button class="custom-carousel-btn next">&gt;</button>
             </div>
         `;
 
@@ -91,7 +116,6 @@
 
     const buildCSS = () => {
         const css = `
-            /* Container / Header */
             #custom-carousel-container {
                 font-size: 1rem;
                 line-height: 1.6;
@@ -106,7 +130,7 @@
                 margin-left: auto;
                 min-width: 0!important;
                 max-width: 1320px;
-                position: relative; 
+                position: relative;
             }
             #custom-carousel-container h2 {
                 text-align: center;
@@ -150,19 +174,18 @@
                 justify-content: center;
                 position: absolute;
                 top: 50%;
+                transform: translateY(-50%);
                 z-index: 10;
             }
-            .custom-carousel-btn.prev { left: -25px; }
-            .custom-carousel-btn.next { right: -25px; }
+            .custom-carousel-btn.prev { left: -30px; }
+            .custom-carousel-btn.next { right: -30px; }
             .custom-carousel-btn:hover {
                 background-color: white;
                 border-color: #ff8900;
             }
 
-            /* Carousel layout */
             .custom-carousel-outer {
                 overflow: hidden;
-                position: relative;
             }
             .custom-carousel-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
             .custom-carousel-slide {
@@ -177,13 +200,11 @@
                 text-align: start;
             }
 
-            /* Ensure the link wrapper stretches so .product-card can fill slide */
             .product-card-link {
                 display: flex;
                 flex-direction: column;
                 flex: 1 1 auto;
                 min-width: 0;
-                border: 1px #7d7d7d solid transparent; /* border width same on hover */
             }
 
             .product-card {
@@ -198,7 +219,7 @@
                 padding: 10px;
                 color: #7d7d7d;
                 margin: 0 0 20px 3px;
-                border: 3px solid transparent; 
+                border: 3px solid transparent;
                 border-radius: 10px;
                 position: relative;
                 text-decoration: none;
@@ -209,15 +230,16 @@
                 align-self: stretch;
                 overflow: hidden;
             }
-            .product-card:hover { border-color: #ff8900; }
-
+            .product-card:hover {
+                border-color: #ff8900; 
+            }
             .product-link {
                 text-decoration: none;
                 color: inherit;
                 display: flex;
                 flex-direction: column;
-                flex: 1 1 auto; 
-                min-height: 0; 
+                flex: 1 1 auto;
+                min-height: 0;
             }
 
             .slide-image-container { padding: 15px; }
@@ -229,7 +251,11 @@
                 display: block;
             }
 
-            .slide-info-container { padding: 0 15px 15px; text-align: left; min-height: 0; }
+            .slide-info-container { 
+                padding: 0 15px 15px; 
+                text-align: left; 
+                min-height: 0; 
+            }
             .slide-product-info {
                 font-family: Poppins,"cursive";
                 box-sizing: border-box;
