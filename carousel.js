@@ -196,8 +196,8 @@
                 transform: translateY(-50%);
                 z-index: 10;
             }
-            .custom-carousel-btn.prev { left: -30px; }
-            .custom-carousel-btn.next { right: -30px; }
+            .custom-carousel-btn.prev { left: -40px; }
+            .custom-carousel-btn.next { right: -40px; }
             .custom-carousel-btn:hover {
                 background-color: white;
                 border-color: #ff8900;
@@ -376,16 +376,18 @@
             }
 
             .favourite-btn {
+                width: 40px;
+                height: 40px;
                 position: absolute;
                 top: 15px;
                 right: 15px;
-                z-index: 3; /* Ensures it's above other card content */
+                z-index: 3;
                 background: none;
-                border: none;
+                border: 1px solid transparent;
+                border-radius: 100%;
                 cursor: pointer;
-                font-size: 28px;
-                color: #cccccc; 
-                padding: 0;
+                font-size: 30px;
+                color: #f28e00; 
                 line-height: 1;
                 transition: color 0.2s ease-in-out;
             }
