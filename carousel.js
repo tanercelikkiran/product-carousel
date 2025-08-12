@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="slide-info-container">
                                     <div class="slide-product-info">
-                                        <b>${product.brand} -</b> 
+                                        <b>${product.brand} </b> 
                                         <span>${product.name.trim()}</span>
                                     </div>
                                     ${priceHTML}
@@ -72,15 +72,13 @@
             <div id="custom-carousel-container">
                 <div id="custom-carousel-header">
                     <h2>Sizin için Seçtiklerimiz</h2>
-                    <div class="custom-carousel-nav">
-                        <button class="custom-carousel-btn prev">&lt;</button>
-                        <button class="custom-carousel-btn next">&gt;</button>
-                    </div>
                 </div>
                 <div class="custom-carousel-outer">
                     <div class="custom-carousel-wrapper">
                         ${productSlides}
                     </div>
+                    <button class="custom-carousel-btn prev">&lt;</button>
+                    <button class="custom-carousel-btn next">&gt;</button>
                 </div>
             </div>
         `;
@@ -108,6 +106,7 @@
                 margin-left: auto;
                 min-width: 0!important;
                 max-width: 1320px;
+                position: relative; 
             }
             #custom-carousel-container h2 {
                 text-align: center;
@@ -136,12 +135,10 @@
                 margin: 0;
             }
 
-            /* Nav buttons */
-            .custom-carousel-nav { display: flex; gap: 15px; }
             .custom-carousel-btn {
-                background-color: #ff8900;
-                color: white;
-                border: none;
+                background-color: #fff7ec;
+                color: #f28e00;
+                border: 1px solid transparent;
                 border-radius: 50%;
                 width: 50px;
                 height: 50px;
@@ -151,12 +148,22 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                transition: background-color 0.3s ease;
+                position: absolute;
+                top: 50%;
+                z-index: 10;
             }
-            .custom-carousel-btn:hover { background-color: #e07a00; }
+            .custom-carousel-btn.prev { left: -25px; }
+            .custom-carousel-btn.next { right: -25px; }
+            .custom-carousel-btn:hover {
+                background-color: white;
+                border-color: #ff8900;
+            }
 
             /* Carousel layout */
-            .custom-carousel-outer { overflow: hidden; }
+            .custom-carousel-outer {
+                overflow: hidden;
+                position: relative;
+            }
             .custom-carousel-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
             .custom-carousel-slide {
                 flex: 0 0 20%;
@@ -179,7 +186,6 @@
                 border: 1px #7d7d7d solid transparent; /* border width same on hover */
             }
 
-            /* Product card: FLEX layout so button sticks to bottom */
             .product-card {
                 display: flex;
                 flex-direction: column;
@@ -192,27 +198,26 @@
                 padding: 10px;
                 color: #7d7d7d;
                 margin: 0 0 20px 3px;
-                border: 3px solid transparent; /* keep width same on hover */
+                border: 3px solid transparent; 
                 border-radius: 10px;
                 position: relative;
                 text-decoration: none;
                 background-color: #fff;
                 margin-top: 20px;
                 height: auto;
-                min-height: 500px; /* senin istediğin değeri korudum */
+                min-height: 500px;
                 align-self: stretch;
                 overflow: hidden;
             }
             .product-card:hover { border-color: #ff8900; }
 
-            /* Force anchor section to take remaining space */
             .product-link {
                 text-decoration: none;
                 color: inherit;
                 display: flex;
                 flex-direction: column;
-                flex: 1 1 auto; /* büyüsün */
-                min-height: 0; /* önemli: flex child içinde overflow kontrolü */
+                flex: 1 1 auto; 
+                min-height: 0; 
             }
 
             .slide-image-container { padding: 15px; }
@@ -296,7 +301,6 @@
                 line-height: 1;
             }
 
-            /* Buton her zaman kartın dibinde */
             .add-to-cart-btn {
                 box-sizing: border-box;
                 margin: 0;
@@ -323,11 +327,10 @@
                 font-weight: 700;
                 position: relative;
                 z-index: 2;
-                margin-top: auto; /* burada kritik: butonu alta iter */
+                margin-top: auto;
             }
             .add-to-cart-btn:hover { background-color: #ff8900; color: #fff; }
 
-            /* Prevent global link hover from changing product text color */
             .product-card a,
             .product-card a:hover,
             .product-card a:focus,
