@@ -18,36 +18,53 @@
     const fetchData = async () => {
         try {
             const products = localStorage.getItem('customCarouselProducts');
-            return JSON.parse(products);
-        }
-        catch (error) {
+            if (products) {
+                return JSON.parse(products);
+            }
+            throw new Error('Not in localStorage');
+        } catch (error) {
             console.error('Not found in localStorage, fetching from API');
             const response = await fetch(API_URL);
-            localStorage.setItem('customCarouselProducts', JSON.stringify(await response.json()));
-            return await response.json();
+            const productsData = await response.json();
+            localStorage.setItem('customCarouselProducts', JSON.stringify(productsData));
+            return productsData;
         }
     };
 
-    const getFavouriteProducts = () => {
-        const favouriteProducts = localStorage.getItem('favouriteProducts');
-        if (favouriteProducts) {
-            return JSON.parse(favouriteProducts).filter(product => product.isFavourite);
-        }
-    }
+    const getFavouriteIds = () => {
+        const favouriteIds = localStorage.getItem('favouriteProductIds');
+        return favouriteIds ? JSON.parse(favouriteIds) : [];
+    };
 
-    const setFavouriteProducts = (favouritedProductId) => {
-        const favouriteProducts = localStorage.getItem('favouriteProducts');
-        if (!favouriteProducts) {
-            localStorage.setItem('favouriteProducts', JSON.stringify([favouritedProductId]));
-        } else {
-            const updatedFavouriteProducts = JSON.parse(favouriteProducts);
-            updatedFavouriteProducts.push(favouritedProductId);
-            localStorage.setItem('favouriteProducts', JSON.stringify(updatedFavouriteProducts));
+    const toggleFavouriteStatus = (productId) => {
+        if (!productId || productId === 'undefined' || productId === 'null') {
+            console.error('Invalid product ID:', productId);
+            return;
         }
+
+        const productIdStr = String(productId);
+        const favouriteIds = getFavouriteIds();
+        const productIndex = favouriteIds.indexOf(productIdStr);
+
+        if (productIndex > -1) {
+            favouriteIds.splice(productIndex, 1);
+        } else {
+            favouriteIds.push(productIdStr);
+        }
+
+        localStorage.setItem('favouriteProductIds', JSON.stringify(favouriteIds));
     };
 
     const buildHTML = (products) => {
+        const favouriteIds = getFavouriteIds();
+
         const productSlides = products.map(product => {
+            const productId = product.id ? String(product.id) : null;
+            if (!productId) {
+                console.error('Product missing ID:', product);
+                return '';
+            }
+
             const hasDiscount = product.price < product.original_price;
             let priceHTML = '';
             if (hasDiscount) {
@@ -70,28 +87,31 @@
                 `;
             }
 
+            const isFavourited = favouriteIds.includes(productId);
+
             return `
-                <div class="custom-carousel-slide">
-                    <div class="product-card-link" href="${product.url}" target="_blank">
-                        <div class="product-card">
-                            <a href="${product.url}" target="_blank" class="product-link">
-                                <div class="slide-image-container">
-                                    <img src="${product.img}" alt="${product.name.trim()}" />
-                                </div>
-                                <div class="slide-info-container">
-                                    <div class="slide-product-info">
-                                        <b>${product.brand} </b> 
-                                        <span>${product.name.trim()}</span>
-                                    </div>
-                                    ${priceHTML}
-                                </div>
-                            </a>
-                            <button class="add-to-cart-btn">Sepete Ekle</button>
+            <div class="custom-carousel-slide">
+                <div class="product-card">
+                    <button class="favourite-btn ${isFavourited ? 'favourited' : ''}" data-product-id="${productId}">
+                        ${isFavourited ? '♥' : '♡'}
+                    </button>
+                    <a href="${product.url}" target="_blank" class="product-link">
+                        <div class="slide-image-container">
+                            <img src="${product.img}" alt="${product.name.trim()}" />
                         </div>
-                    </div>
+                        <div class="slide-info-container">
+                            <div class="slide-product-info">
+                                <b>${product.brand} -</b> 
+                                <span>${product.name.trim()}</span>
+                            </div>
+                            ${priceHTML}
+                        </div>
+                    </a>
+                    <button class="add-to-cart-btn">Sepete Ekle</button>
                 </div>
-            `;
-        }).join('');
+            </div>
+        `;
+        }).filter(slide => slide !== '').join('');
 
         const carouselHTML = `
             <div id="custom-carousel-container">
@@ -158,7 +178,6 @@
                 color: #f28e00;
                 margin: 0;
             }
-
             .custom-carousel-btn {
                 background-color: #fff7ec;
                 color: #f28e00;
@@ -183,7 +202,6 @@
                 background-color: white;
                 border-color: #ff8900;
             }
-
             .custom-carousel-outer {
                 overflow: hidden;
             }
@@ -199,14 +217,12 @@
                 font-family: Quicksand-Medium;
                 text-align: start;
             }
-
             .product-card-link {
                 display: flex;
                 flex-direction: column;
                 flex: 1 1 auto;
                 min-width: 0;
             }
-
             .product-card {
                 display: flex;
                 flex-direction: column;
@@ -241,7 +257,6 @@
                 flex: 1 1 auto;
                 min-height: 0;
             }
-
             .slide-image-container { padding: 15px; }
             .slide-image-container img {
                 max-width: 100%;
@@ -250,7 +265,6 @@
                 object-fit: contain;
                 display: block;
             }
-
             .slide-info-container { 
                 padding: 0 15px 15px; 
                 text-align: left; 
@@ -268,7 +282,6 @@
                 overflow: hidden;
                 margin-bottom: 10px;
             }
-
             .price-container {
                 display: flex;
                 flex-wrap: wrap;
@@ -326,7 +339,6 @@
                 font-style: italic;
                 line-height: 1;
             }
-
             .add-to-cart-btn {
                 box-sizing: border-box;
                 margin: 0;
@@ -356,12 +368,33 @@
                 margin-top: auto;
             }
             .add-to-cart-btn:hover { background-color: #ff8900; color: #fff; }
-
             .product-card a,
             .product-card a:hover,
             .product-card a:focus,
             .product-card a:active {
                 color: #7d7d7d !important;
+            }
+
+            .favourite-btn {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                z-index: 3; /* Ensures it's above other card content */
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 28px;
+                color: #cccccc; 
+                padding: 0;
+                line-height: 1;
+                transition: color 0.2s ease-in-out;
+            }
+            .favourite-btn:hover {
+                color: #f28e00;
+                border-color: #f28e00;
+            }
+            .favourite-btn.favourited {
+                color: #f28e00; 
             }
         `;
 
@@ -403,6 +436,29 @@
                 currentIndex--;
                 const slideWidth = firstSlide.offsetWidth;
                 wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+        });
+
+        wrapper.addEventListener('click', (event) => {
+            const favouriteButton = event.target.closest('.favourite-btn');
+            if (favouriteButton) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                const productId = favouriteButton.getAttribute('data-product-id');
+                if (!productId || productId === 'undefined' || productId === 'null') {
+                    console.error('Invalid product ID from button:', productId);
+                    return;
+                }
+
+                toggleFavouriteStatus(productId);
+
+                favouriteButton.classList.toggle('favourited');
+                if (favouriteButton.classList.contains('favourited')) {
+                    favouriteButton.innerHTML = '♥';
+                } else {
+                    favouriteButton.innerHTML = '♡';
+                }
             }
         });
     };
