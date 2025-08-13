@@ -5,11 +5,9 @@
     const init = async () => {
         try {
             const products = await fetchData();
-            if (products && products.length > 0) {
-                buildHTML(products);
-                buildCSS();
-                setEvents();
-            }
+            buildHTML(products);
+            buildCSS();
+            setEvents();
         } catch (error) {
             console.error('Hata:', error);
         }
