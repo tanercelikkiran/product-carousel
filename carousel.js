@@ -152,6 +152,62 @@
                 max-width: 1320px;
                 position: relative;
             }
+
+            @media (max-width: 1400px) {
+                #custom-carousel-container {
+                    max-width: 1200px;
+                    padding-right: 14px;
+                    padding-left: 14px;
+                }
+            }
+
+            @media (max-width: 1200px) {
+                #custom-carousel-container {
+                    max-width: 1000px;
+                    padding-right: 13px;
+                    padding-left: 13px;
+                }
+            }
+
+            @media (max-width: 1000px) {
+                #custom-carousel-container {
+                    max-width: 800px;
+                    padding-right: 12px;
+                    padding-left: 12px;
+                }
+            }
+
+            @media (max-width: 800px) {
+                #custom-carousel-container {
+                    max-width: 600px;
+                    padding-right: 10px;
+                    padding-left: 10px;
+                }
+            }
+
+            @media (max-width: 600px) {
+                #custom-carousel-container {
+                    max-width: 480px;
+                    padding-right: 8px;
+                    padding-left: 8px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                #custom-carousel-container {
+                    max-width: 100%;
+                    padding-right: 6px;
+                    padding-left: 6px;
+                }
+            }
+
+            @media (max-width: 360px) {
+                #custom-carousel-container {
+                    max-width: 100%;
+                    padding-right: 4px;
+                    padding-left: 4px;
+                }
+            }
             #custom-carousel-container h2 {
                 text-align: center;
                 margin-bottom: 25px;
@@ -204,8 +260,27 @@
             }
             .custom-carousel-outer {
                 overflow: hidden;
+                width: 100%;
+                position: relative;
             }
-            .custom-carousel-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
+            .custom-carousel-wrapper { 
+                display: flex; 
+                transition: transform 0.5s ease-in-out;
+                width: 100%;
+            }
+
+            @media (max-width: 768px) {
+                .custom-carousel-outer {
+                    margin: 0 auto;
+                    max-width: calc(100vw - 80px); 
+                }
+            }
+
+            @media (max-width: 480px) {
+                .custom-carousel-outer {
+                    max-width: calc(100vw - 60px);
+                }
+            }
             .custom-carousel-slide {
                 flex: 0 0 20%;
                 box-sizing: border-box;
@@ -216,6 +291,369 @@
                 line-height: 1.6;
                 font-family: Quicksand-Medium;
                 text-align: start;
+            }
+
+            @media (max-width: 1480px) {
+                .custom-carousel-slide {
+                    flex: 0 0 33.333%;
+                }
+                #custom-carousel-container {
+                    padding-right: 12px;
+                    padding-left: 12px;
+                }
+                #custom-carousel-header {
+                    padding: 20px 40px;
+                }
+                #custom-carousel-header h2 {
+                    font-size: 2.5rem;
+                }
+                .product-card {
+                    min-height: 480px;
+                    max-width: 350px;
+                    margin: 0 auto 20px auto;
+                }
+                .slide-product-info {
+                    font-size: 1.15rem;
+                    min-height: 40px;
+                }
+                .price-container .current-price {
+                    font-size: 2rem; 
+                }
+                .price-container .original-price {
+                    font-size: 1.3rem;
+                }
+            }
+
+            @media (max-width: 992px) {
+                .custom-carousel-slide {
+                    flex: 0 0 50%;
+                }
+                #custom-carousel-container {
+                    padding-right: 10px;
+                    padding-left: 10px;
+                }
+                #custom-carousel-header {
+                    padding: 15px 30px;
+                }
+                #custom-carousel-header h2 {
+                    font-size: 2rem;
+                }
+                .custom-carousel-btn {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 20px;
+                }
+                .custom-carousel-btn.prev { left: -30px; }
+                .custom-carousel-btn.next { right: -30px; }
+                .product-card {
+                    min-height: 450px;
+                    max-width: 280px;
+                    padding: 8px;
+                    margin: 0 auto 18px auto;
+                }
+                .slide-product-info {
+                    font-size: 1.1rem;
+                    min-height: 38px;
+                }
+                .price-container .current-price {
+                    font-size: 1.9rem;
+                }
+                .price-container .original-price {
+                    font-size: 1.25rem;
+                }
+                .add-to-cart-btn {
+                    font-size: 1.3rem; 
+                }
+            }
+
+            @media (max-width: 768px) {
+                .custom-carousel-slide {
+                    flex: 0 0 50%; 
+                }
+                #custom-carousel-container {
+                    padding-right: 8px;
+                    padding-left: 8px;
+                }
+                #custom-carousel-header {
+                    padding: 12px 20px;
+                    border-top-left-radius: 20px;
+                    border-top-right-radius: 20px;
+                }
+                .custom-carousel-btn {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 18px;
+                }
+                .custom-carousel-btn.prev { left: -25px; }
+                .custom-carousel-btn.next { right: -25px; }
+                
+                .product-card {
+                    min-height: 380px;
+                    max-width: 200px;
+                    padding: 6px;
+                    margin: 0 auto 15px auto;
+                    border-width: 2px; 
+                }
+                .slide-image-container {
+                    padding: 8px;
+                }
+                .slide-info-container {
+                    padding: 0 8px 8px; 
+                }
+                .slide-product-info {
+                    font-size: 0.95rem; 
+                    height: auto;
+                    min-height: 34px;
+                    margin-bottom: 6px;
+                    line-height: 1.1;
+                }
+                .price-container {
+                    margin-bottom: 8px;
+                    gap: 4px;
+                }
+                .price-container .current-price {
+                    font-size: 1.6rem; 
+                }
+                .price-container .original-price {
+                    font-size: 1.1rem; 
+                }
+                .price-container .discount-badge {
+                    font-size: 13px; 
+                }
+                .price-container .discount-badge i {
+                    width: 16px;
+                    height: 16px;
+                    font-size: 10px;
+                }
+                .add-to-cart-btn {
+                    height: 36px; 
+                    padding: 8px 12px;
+                    font-size: 1.1rem; 
+                    border-radius: 18px;
+                }
+                .favourite-btn {
+                    width: 32px;
+                    height: 32px;
+                    font-size: 22px;
+                    top: 8px;
+                    right: 8px;
+                }
+            }
+
+            @media (max-width: 600px) {
+                #custom-carousel-header {
+                    padding: 10px 15px;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                }
+                #custom-carousel-header h2 {
+                    font-size: 1.4rem;
+                    line-height: 1.2;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .custom-carousel-slide {
+                    flex: 0 0 50%; 
+                    padding: 4px; 
+                }
+                #custom-carousel-container {
+                    padding-right: 8px;
+                    padding-left: 8px;
+                }
+                #custom-carousel-header {
+                    padding: 8px 12px;
+                    border-top-left-radius: 12px;
+                    border-top-right-radius: 12px;
+                }
+                #custom-carousel-header h2 {
+                    font-size: 1.2rem;
+                    line-height: 1.2;
+                }
+                .custom-carousel-btn {
+                    width: 36px;
+                    height: 36px;
+                    font-size: 16px;
+                }
+                .custom-carousel-btn.prev { left: -20px; }
+                .custom-carousel-btn.next { right: -20px; }
+                
+                .product-card {
+                    min-height: 320px;
+                    max-width: 180px; 
+                    padding: 6px;
+                    margin: 0 auto 12px auto;
+                    border-width: 2px;
+                    border-radius: 10px;
+                }
+                .slide-image-container {
+                    padding: 8px;
+                }
+                .slide-info-container {
+                    padding: 0 8px 8px;
+                }
+                .slide-product-info {
+                    font-size: 0.9rem;
+                    min-height: 30px;
+                    margin-bottom: 5px;
+                    line-height: 1.1;
+                }
+                .price-container {
+                    margin-bottom: 8px;
+                    gap: 3px;
+                }
+                .price-container .current-price {
+                    font-size: 1.4rem;
+                }
+                .price-container .original-price {
+                    font-size: 1rem;
+                }
+                .price-container .discount-badge {
+                    font-size: 12px;
+                }
+                .price-container .discount-badge i {
+                    width: 15px;
+                    height: 15px;
+                    font-size: 10px;
+                }
+                .add-to-cart-btn {
+                    height: 32px;
+                    padding: 6px 10px;
+                    font-size: 1rem;
+                    border-radius: 16px;
+                }
+                .favourite-btn {
+                    width: 28px;
+                    height: 28px;
+                    font-size: 20px;
+                    top: 8px;
+                    right: 8px;
+                }
+            }
+
+            @media (max-width: 360px) {
+                .custom-carousel-slide {
+                    padding: 3px;
+                }
+                #custom-carousel-container {
+                    padding-right: 6px;
+                    padding-left: 6px;
+                }
+                #custom-carousel-header {
+                    padding: 6px 10px;
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+                #custom-carousel-header h2 {
+                    font-size: 1rem;
+                    line-height: 1.1;
+                }
+                .custom-carousel-btn {
+                    width: 32px;
+                    height: 32px;
+                    font-size: 14px;
+                }
+                .custom-carousel-btn.prev { left: -18px; }
+                .custom-carousel-btn.next { right: -18px; }
+                
+                .product-card {
+                    min-height: 280px;
+                    max-width: 150px;
+                    padding: 5px;
+                    margin: 0 auto 10px auto;
+                }
+                .slide-image-container {
+                    padding: 6px;
+                }
+                .slide-info-container {
+                    padding: 0 6px 6px;
+                }
+                .slide-product-info {
+                    font-size: 0.8rem;
+                    min-height: 28px;
+                    margin-bottom: 4px;
+                }
+                .price-container {
+                    margin-bottom: 6px;
+                    gap: 2px;
+                }
+                .price-container .current-price {
+                    font-size: 1.2rem;
+                }
+                .price-container .original-price {
+                    font-size: 0.85rem;
+                }
+                .price-container .discount-badge {
+                    font-size: 10px;
+                }
+                .price-container .discount-badge i {
+                    width: 12px;
+                    height: 12px;
+                    font-size: 8px;
+                }
+                .add-to-cart-btn {
+                    height: 28px;
+                    padding: 5px 8px;
+                    font-size: 0.85rem;
+                    border-radius: 14px;
+                }
+                .favourite-btn {
+                    width: 24px;
+                    height: 24px;
+                    font-size: 16px;
+                    top: 6px;
+                    right: 6px;
+                }
+            }
+
+            @media (max-width: 320px) {
+                #custom-carousel-header {
+                    padding: 5px 8px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                }
+                #custom-carousel-header h2 {
+                    font-size: 0.9rem;
+                    line-height: 1;
+                }
+            }
+
+            @media (max-width: 768px) and (hover: none) {
+                .custom-carousel-btn {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 20px;
+                    background-color: #ffebc6;
+                }
+                .custom-carousel-btn:active {
+                    background-color: #ff8900;
+                    color: #fff;
+                    transform: translateY(-50%) scale(0.95);
+                }
+                .add-to-cart-btn {
+                    min-height: 44px;
+                }
+                .favourite-btn {
+                    min-width: 38px;
+                    min-height: 38px;
+                }
+            }
+
+            @media (max-width: 768px) and (orientation: landscape) {
+                .product-card {
+                    min-height: 280px;
+                }
+                .slide-image-container {
+                    padding: 8px;
+                }
+                .slide-product-info {
+                    font-size: 0.95rem;
+                    min-height: 30px;
+                }
+                .add-to-cart-btn {
+                    height: 38px;
+                    font-size: 1.1rem;
+                }
             }
             .product-card-link {
                 display: flex;
@@ -422,23 +860,55 @@
 
         let currentIndex = 0;
         const totalSlides = slides.length;
-        const slidesPerPage = 5;
         const firstSlide = slides[0];
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < (totalSlides - slidesPerPage)) {
+        const getSlidesPerPage = () => {
+            const screenWidth = window.innerWidth;
+            if (screenWidth <= 768) return 2; 
+            if (screenWidth <= 992) return 3; 
+            if (screenWidth <= 1480) return 4; 
+            return 5; 
+        };
+
+        const updateCarouselPosition = () => {
+            const slideWidth = firstSlide.offsetWidth;
+            wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        };
+
+        const handleNavigation = (direction) => {
+            const slidesPerPage = getSlidesPerPage();
+            const maxIndex = Math.max(0, totalSlides - slidesPerPage);
+
+            if (direction === 'next' && currentIndex < maxIndex) {
                 currentIndex++;
-                const slideWidth = firstSlide.offsetWidth;
-                wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            } else if (direction === 'prev' && currentIndex > 0) {
+                currentIndex--;
             }
+
+            updateCarouselPosition();
+        };
+
+        nextBtn.addEventListener('click', () => {
+            handleNavigation('next');
         });
 
         prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                const slideWidth = firstSlide.offsetWidth;
-                wrapper.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-            }
+            handleNavigation('prev');
+        });
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const slidesPerPage = getSlidesPerPage();
+                const maxIndex = Math.max(0, totalSlides - slidesPerPage);
+
+                if (currentIndex > maxIndex) {
+                    currentIndex = maxIndex;
+                }
+
+                updateCarouselPosition();
+            }, 150);
         });
 
         wrapper.addEventListener('click', (event) => {
