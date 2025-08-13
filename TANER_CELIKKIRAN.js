@@ -617,44 +617,6 @@
                     line-height: 1;
                 }
             }
-
-            @media (max-width: 768px) and (hover: none) {
-                .custom-carousel-btn {
-                    width: 45px;
-                    height: 45px;
-                    font-size: 20px;
-                    background-color: #ffebc6;
-                }
-                .custom-carousel-btn:active {
-                    background-color: #ff8900;
-                    color: #fff;
-                    transform: translateY(-50%) scale(0.95);
-                }
-                .add-to-cart-btn {
-                    min-height: 44px;
-                }
-                .favourite-btn {
-                    min-width: 38px;
-                    min-height: 38px;
-                }
-            }
-
-            @media (max-width: 768px) and (orientation: landscape) {
-                .product-card {
-                    min-height: 280px;
-                }
-                .slide-image-container {
-                    padding: 8px;
-                }
-                .slide-product-info {
-                    font-size: 0.95rem;
-                    min-height: 30px;
-                }
-                .add-to-cart-btn {
-                    height: 38px;
-                    font-size: 1.1rem;
-                }
-            }
             .product-card-link {
                 display: flex;
                 flex-direction: column;
