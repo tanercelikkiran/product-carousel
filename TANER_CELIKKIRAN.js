@@ -2,7 +2,21 @@
     const API_URL = 'https://gist.githubusercontent.com/sevindi/8bcbde9f02c1d4abe112809c974e1f49/raw/9bf93b58df623a9b16f1db721cd0a7a539296cf0/products.json';
     const TARGET_ELEMENT_SELECTOR = 'div[class^="ins-preview-wrapper"]';
 
+    const checkDomain = () => {
+        const currentHost = window.location.hostname;
+        return currentHost === 'www.e-bebek.com' || currentHost === 'e-bebek.com';
+    };
+
+    const checkPath = () => {
+        const currentPath = window.location.pathname;
+        return currentPath === '/';
+    };
+
     const init = async () => {
+        if (!checkDomain() || !checkPath()) {
+            console.log("wrong page");
+            return;
+        }
         try {
             const products = await fetchData();
             buildHTML(products);
