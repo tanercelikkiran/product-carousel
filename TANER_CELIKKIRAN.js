@@ -265,7 +265,7 @@
             }
             .custom-carousel-wrapper { 
                 display: flex; 
-                transition: transform 0.5s ease-in-out;
+                transition: transform 0.25s ease-in-out;
                 width: 100%;
             }
 
@@ -864,10 +864,10 @@
 
         const getSlidesPerPage = () => {
             const screenWidth = window.innerWidth;
-            if (screenWidth <= 768) return 2; 
-            if (screenWidth <= 992) return 3; 
-            if (screenWidth <= 1480) return 4; 
-            return 5; 
+            if (screenWidth <= 768) return 2;
+            if (screenWidth <= 992) return 3;
+            if (screenWidth <= 1480) return 4;
+            return 5;
         };
 
         const updateCarouselPosition = () => {
