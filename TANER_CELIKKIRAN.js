@@ -1,6 +1,7 @@
 (() => {
     const API_URL = 'https://gist.githubusercontent.com/sevindi/8bcbde9f02c1d4abe112809c974e1f49/raw/9bf93b58df623a9b16f1db721cd0a7a539296cf0/products.json';
-    const TARGET_ELEMENT_SELECTOR = 'div[class^="ins-preview-wrapper"]';
+    const TARGET_ELEMENT_SELECTOR = 'eb-product-carousel';
+    const FALLBACK_SELECTOR = 'div[class^="ins-preview-wrapper"]';
 
     const checkDomain = () => {
         const currentHost = window.location.hostname;
@@ -142,7 +143,14 @@
 
         const targetElement = document.querySelector(TARGET_ELEMENT_SELECTOR);
         if (targetElement) {
-            targetElement.insertAdjacentHTML('afterend', carouselHTML);
+            targetElement.insertAdjacentHTML('beforebegin', carouselHTML);
+        } else {
+            const fallbackElement = document.querySelector(FALLBACK_SELECTOR);
+            if (fallbackElement) {
+                fallbackElement.insertAdjacentHTML('afterend', carouselHTML);
+            } else {
+                console.error('Neither target element found for carousel injection');
+            }
         }
     };
 
